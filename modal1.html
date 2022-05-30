@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url(css/reset.css);
+        ::selection{
+            background-color: transparent; /* ::selection -> 드래그했을 때 파랗게 되는 것(블록컬러)을 투명하게 바꿔주는 것 */
+        }
+        #imgwrap{width: 600px;margin: 100px auto}
+        .imgbox{display: flex;}
+        .imgbox img{width:200px;}
+        #modal_bg{position: fixed;left:0;top:0;width:100%;height: 100%;
+        background: rgba(0,0,0,0.6);display: none}
+        #modal_center{width:580px;height: 380px;border:5px solid #fff;
+        position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);}
+        #modal_center img{width: 100%;}
+        
+    </style>
+   
+</head>
+<body>
+   <div id="imgwrap">
+        <ul class="imgbox">
+            <li><img src="img/gallery/01_img.jpg" class='imgsrc'></li>
+            <li><img src="img/gallery/02_img.jpg" class='imgsrc'></li>
+            <li><img src="img/gallery/03_img.jpg" class='imgsrc'></li>
+        </ul>
+    </div>
+    <!--모달창 시작 -->
+    <div id="modal_bg">
+        <div id="modal_center">
+            <img src="img/gallery/01_img.jpg" id='cngImg'>
+        </div>
+    </div>
+    <!--모달창 끝 -->
+</body>
+
+<script>
+const imgbox = document.querySelector('.imgbox');
+const imglist = document.querySelectorAll('.imgsrc');
+const modal = document.querySelector('#modal_bg');
+const cngImg = document.querySelector('#cngImg');
+const body = document.querySelector('body');
+  
+imgbox.addEventListener('click',e => {
+    const select = e.target; // 클릭하면 이미지를 받아옴
+    let src = select.getAttribute('src');
+    cngImg.setAttribute('src',src);
+    modal.style.display = 'block'; 
+})
+/*
+modal.addEventListener('click',() =>{
+    modal.style.display = 'none';  //이미지 클릭시 뜨게 하는거 설정
+}) */ 
+
+body.addEventListener('click',(e)=>{
+    const selected = e.target;  //클릭한 이미지(대상)가 타겟! 
+    let state = window.getComputedStyle(selected).display;// 현재 상태값을 저장
+    console.log(state)
+    if(state==='block' && !(selected.closest('#modal_center'))){  // 이미지 하나가 아니라 div나 블럭요소가 여러개 들어가있을수도 있기 때문에 조건을 걸어두는 것임
+        modal.style.display='none'  // 모달센터가 아니면서 블록요소가 아닐 때 클릭하면 화면이 보이지 않는다는 조건임.
+    }
+})
+
+/*
+element.parentNode : 바로 위 부모 선택. 요소, 주석, 줄바꿈 포함
+closest : 자신의 가장 가까운 조상의 클래스나 아이디를 가진 애를 가리킴
+*/
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

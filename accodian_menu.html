@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url(css/reset.css);
+        body{background: #ddd;font-family:'arial',sans-serif;color:#999}
+        #wrapper{width: 280px;margin: 0 auto;box-shadow:0 0 10px rgba(0,0,0,0.2)}
+        .main li{border-top:1px solid #ddd;background: #fff}
+        .main>li>a{display: block;height: 60px;line-height: 60px; padding: 0 20px;font-size: 24px;color:#666;background: url(img/mini/sprite.png) no-repeat right top #f0f0f0}
+        .main>li.on>a{background-position: right top -60px;color:#048ffb}
+        .sub>li{height: 50px;line-height: 50px;font-size: 20px;padding-left: 20px;}
+        .sub{display: none}
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <ul class="main">
+            <li>
+                <a href="#">Main1</a>
+                <ul class="sub">
+                    <li><a href="#">Sub1</a></li>    
+                    <li><a href="#">Sub2</a></li>    
+                    <li><a href="#">Sub3</a></li>    
+                </ul>
+            </li>
+            <li>
+                <a href="#">Main2</a>
+                <ul class="sub">
+                    <li><a href="#">Sub1</a></li>    
+                    <li><a href="#">Sub2</a></li>    
+                    <li><a href="#">Sub3</a></li>    
+                </ul>
+            </li>
+            <li>
+                <a href="#">Main3</a>
+                <ul class="sub">
+                    <li><a href="#">Sub1</a></li>    
+                    <li><a href="#">Sub2</a></li>    
+                    <li><a href="#">Sub3</a></li>    
+                </ul>
+            </li>
+            <li>
+                <a href="#">Main4</a>
+                <ul class="sub">
+                    <li><a href="#">Sub1</a></li>    
+                    <li><a href="#">Sub2</a></li>    
+                    <li><a href="#">Sub3</a></li>    
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const wrapper = document.querySelector('#wrapper');
+        const main = document.querySelector('.main');
+        const mainList = document.querySelectorAll('.main>li');
+        const sub = document.querySelector('.sub');
+    
+        main.addEventListener('click',e =>{
+            let =e.target.classList.contains('on'); // on이 있는지 없는지를 알아야 없애고 추가할 부분을 입력해줄 수 있으니까.
+
+            if(hasOn){
+                e.target.classList.remove('on');
+                e.target.childNodes.forEach((ele)=>{  // main 안에 있는 li들을 ele라고 매개변수명을 지어준 것임.
+                    if(ele.tagName === 'P'){ // 태그네임은 대문자로 일치시켜야함. (H2, IMG 이런식으로)
+                    ele.classList.remove('open')
+                }
+            })
+
+           }else{
+            content.forEach((ele)=>{
+            ele.classList.remove('active');
+           })
+           e.target.classList.add('active');
+
+           contentBody.forEach((ele)=>{
+               ele.classList.remove('open');
+               //ele.style.display ='none'
+           })
+           let index = e.target.dataset.num;
+           contentBody[index].classList.add('open')
+           //contentBody[index].style.display='block'
+           }
+
+        })
+    </script>
+</body>
+</html>

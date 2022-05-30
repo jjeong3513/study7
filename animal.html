@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url(css/reset.css);
+        body{background: url(../img/animals/bg.png)}
+        #wrapper{width: 800px;margin: 100px auto;background: #151515;padding: 20px;overflow: hidden}
+        .cover{float: left;background: #f5db87;width: 400px;height: 600px;text-align: center;line-height: 600px}
+        .animal{float: left;width: 400px;height: 600px;}
+        .animal li{float: left;width: 200px;height: 200px;cursor: pointer;text-align: center;line-height: 200px;}
+        .animal li img{width: 100px;height: 100px;transition:all 0.2s}
+        .animal li:hover img{width: 150px;height: 150px;}
+        .animal li img{pointer-events: none;} 
+        .a01{background-color: #fed75f}
+        .a02{background-color: #fffbd9}
+        .a03{background-color: #94dec5}
+        .a04{background-color: #a3d8b2}
+        .a05{background-color: #ffeed8}
+        .a06{background-color: #77ada2}
+    </style>
+   
+</head>
+<body>
+<div id="wrapper">
+    <div class="cover">
+        <img src="img/animals/a.png" alt="" id="bigImg">
+    </div>
+    <ul class="animal">
+        <li class="a01"><img src="img/animals/a01.png" alt=""></li>
+         <!-- 1. data-src='이미지경로'
+             2. 관계연산으로 가져오기 -->
+        <li class="a02"><img src="img/animals/a02.png" alt=""></li>
+        <li class="a03"><img src="img/animals/a03.png" alt=""></li>
+        <li class="a04"><img src="img/animals/a04.png" alt=""></li>
+        <li class="a05"><img src="img/animals/a05.png" alt=""></li>
+        <li class="a06"><img src="img/animals/a06.png" alt=""></li>
+    </ul>
+</div>
+<script>
+    const animals = document.querySelector('.animal');
+    const animal = document.querySelectorAll('.animal>li');
+    const cover = document.querySelector('.cover');
+    const bigImg = document.querySelector('#bigImg');
+
+    animals.addEventListener('click',e => {    // animals.addEventListener('click',function(e){})
+        const selected = e.target;
+        selectedTab(selected) // 함수 호출
+    })
+   const selectedTab = (selected) =>{
+    let bg = window.getComputedStyle(selected).backgroundColor; // css 파일에 있는 스타일 값을 가져옴
+    console.log(bg)
+    cover.style.backgroundColor = bg;
+    let src = selected.firstChild.getAttribute('src'); // firstChild로 지정하면 내용 수정할 때 공백이 들어가면 공백을 첫번째 자식으로 읽음
+    console.log(src)
+    bigImg.setAttribute('src',src) // 엔터로 태그 닫는 부분을 내려서 입력하면 공백을 자식으로 인지해서 첫번째 자식이 안됨. 수정하면 어긋날 확률이 높다.
+      // firstChild, lastChild, childNodes[index번호]도 되지만  firstChild, lastChild, childNodes(태그네임)
+   }
+
+
+</script>
+</body>
+</html>
+
+<!--
+    css 파일에 있는 스타일 값을 가져올 때
+    window.getComputedStyle(대상).스타일속성
+    
+     documentobject.style.속성 (let bg = selected.style.backgroundColor) -> (computed 연산이 다 끝난 것)
+       => 인라인으로 적용이 되어있을 떄 / 인라인으로 주입할 떄
+-->
